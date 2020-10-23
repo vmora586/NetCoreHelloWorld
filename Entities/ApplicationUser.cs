@@ -4,6 +4,6 @@ namespace BooksApi.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-    
+     
     }
 }
