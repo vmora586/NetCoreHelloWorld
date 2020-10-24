@@ -8,7 +8,7 @@ namespace BooksApi.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            /*
+            
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -21,9 +21,9 @@ namespace BooksApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });*/
+                });
 
-            /*migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -47,8 +47,7 @@ namespace BooksApi.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
-           */
-            /*
+
              migrationBuilder.CreateTable(
                  name: "AspNetRoleClaims",
                  columns: table => new
@@ -69,8 +68,7 @@ namespace BooksApi.Migrations
                          principalColumn: "Id",
                          onDelete: ReferentialAction.Cascade);
                  });
- */
- /*
+ 
             migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
@@ -91,8 +89,7 @@ namespace BooksApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-*/
-/*
+
             migrationBuilder.CreateTable(
                 name: "AspNetUserLogins",
                 columns: table => new
@@ -112,8 +109,7 @@ namespace BooksApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-*/
-/*
+
             migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
                 columns: table => new
@@ -137,7 +133,7 @@ namespace BooksApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-*/
+
             migrationBuilder.CreateTable(
                 name: "AspNetUserTokens",
                 columns: table => new
