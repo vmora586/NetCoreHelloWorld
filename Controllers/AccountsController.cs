@@ -33,7 +33,7 @@ namespace BooksApi.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Register new users on the application
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
@@ -63,7 +63,6 @@ namespace BooksApi.Controllers
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
-
         [HttpPost("login")]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
