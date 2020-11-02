@@ -58,31 +58,57 @@ namespace BooksApi.Controllers
             }
         }
 
-        private UserToken BuildToken(UserInfo userInfo, IList<string> roles)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
-            var claims= new List<Claim>
+            var result = await _sigInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return BuildToken(userInfo);
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            return BadRequest(ModelState);
+        }
+
+        /// <summary>
+        /// Creates the tokens used for the users
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        private UserToken BuildToken(UserInfo userInfo, IList<string> roles = null)
+        {
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
-            
-            var key= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
-            var credentials= new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
-            var expiration= DateTime.UtcNow.AddHours(1);
 
-            var token= new JwtSecurityToken
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expiration = DateTime.UtcNow.AddHours(1);
+
+            var token = new JwtSecurityToken
             (
-                issuer:null,
-                audience:null,
-                claims:claims,
+                issuer: null,
+                audience: null,
+                claims: claims,
                 expires: expiration,
-                signingCredentials:credentials
+                signingCredentials: credentials
             );
 
             return new UserToken()
             {
-                Token= new JwtSecurityTokenHandler().WriteToken(token),
-                Expiration=expiration  
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration = expiration
             };
         }
     }
