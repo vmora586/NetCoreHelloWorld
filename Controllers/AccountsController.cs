@@ -82,7 +82,7 @@ namespace BooksApi.Controllers
             return new UserToken()
             {
                 Token= new JwtSecurityTokenHandler().WriteToken(token),
-                Expiration=expiration
+                Expiration=expiration  
             };
         }
     }
