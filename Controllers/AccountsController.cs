@@ -41,7 +41,7 @@ namespace BooksApi.Controllers
         public async Task<ActionResult<UserToken>> AddUser([FromBody] UserInfo userInfo)
         {
             var user = new ApplicationUser
-            {
+            { 
                 UserName = userInfo.Email,
                 Email = userInfo.Email
             };
