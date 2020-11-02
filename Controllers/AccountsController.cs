@@ -1,14 +1,22 @@
+using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using BooksApi.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BooksApi.Controllers
 {
-    [ApiController]
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]")]
+    [ApiController]
     public class AccountsController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -19,11 +27,16 @@ namespace BooksApi.Controllers
                                   SignInManager<ApplicationUser> signInManager,
                                   IConfiguration configuration)
         {
-           _userManager=userManager;
-           _sigInManager=signInManager;
-           _configuration=configuration;
+            _userManager = userManager;
+            _sigInManager = signInManager;
+            _configuration = configuration;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         [HttpPost("")]
         public async Task<ActionResult<UserToken>> AddUser([FromBody] UserInfo userInfo)
         {
@@ -33,7 +46,7 @@ namespace BooksApi.Controllers
                 Email = userInfo.Email
             };
 
-            var result= await _userManager.CreateAsync(user, userInfo.Password);
+            var result = await _userManager.CreateAsync(user, userInfo.Password);
 
             if (result.Succeeded)
             {
@@ -45,9 +58,32 @@ namespace BooksApi.Controllers
             }
         }
 
-        private UserToken BuildToken(UserInfo userInfo, List<string> list)
+        private UserToken BuildToken(UserInfo userInfo, IList<string> roles)
         {
-            return new UserToken();
+            var claims= new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+            
+            var key= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
+            var credentials= new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
+            var expiration= DateTime.UtcNow.AddHours(1);
+
+            var token= new JwtSecurityToken
+            (
+                issuer:null,
+                audience:null,
+                claims:claims,
+                expires: expiration,
+                signingCredentials:credentials
+            );
+
+            return new UserToken()
+            {
+                Token= new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration=expiration
+            };
         }
     }
 }
