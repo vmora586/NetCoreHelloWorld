@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DFf3WdPatMpE2VF9mKvDpfkuAnaqZVtWlXxVACcn5ORiP6+iOM3eTaMPZC7Wo3677ygL+d9GIm80sVpNhDoX6A==",
+  "dgSpecHash": "VkPS2IHWHskYTlo0zEnwYI0dsANe10H+bE0oSUCaEigY0auAQZzhwEckVSg8s29WxtbM6OnXb3xenGzMkTVwoA==",
   "success": true,
   "projectFilePath": "/Users/victorm/Documents/CursosDesarrollo/NetCoreWebApi/BooksApi/BooksApi.csproj",
   "expectedPackageFiles": [
@@ -149,7 +149,9 @@
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/system.xml.xmldocument/4.0.1/system.xml.xmldocument.4.0.1.nupkg.sha512",
     "/Users/victorm/.nuget/packages/system.xml.xpath/4.0.1/system.xml.xpath.4.0.1.nupkg.sha512",
-    "/Users/victorm/.nuget/packages/system.xml.xpath.xmldocument/4.0.1/system.xml.xpath.xmldocument.4.0.1.nupkg.sha512"
+    "/Users/victorm/.nuget/packages/system.xml.xpath.xmldocument/4.0.1/system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
+    "/Users/victorm/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "/Users/victorm/.nuget/packages/microsoft.netcore.app.host.osx-x64/3.1.32/microsoft.netcore.app.host.osx-x64.3.1.32.nupkg.sha512"
   ],
   "logs": []
 }

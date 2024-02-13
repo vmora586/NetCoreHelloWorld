@@ -1,7 +1,9 @@
+using System.IO;
 using AutoMapper;
 using BooksApi.Contexts;
 using BooksApi.Dtos;
 using BooksApi.Entities;
+using BooksApi.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace BooksApi
 {
@@ -30,10 +33,10 @@ namespace BooksApi
             options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
             //to inject Identity service. This is the default configuration
-            services.AddIdentity<ApplicationUser,IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
-            
+
             //to handle loop reference serialization
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -45,8 +48,10 @@ namespace BooksApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            app.UseLogginHttpResponse();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
